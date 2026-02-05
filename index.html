@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayhan Adesta | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        /* Language Toggle */
+        .lang-toggle {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            padding: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .lang-option {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            z-index: 2;
+            transition: color 0.3s ease;
+            font-size: 0.85rem;
+        }
+        
+        .lang-active {
+            color: white;
+        }
+        
+        .lang-slider {
+            position: absolute;
+            width: 50%;
+            height: calc(100% - 8px);
+            background-color: #3498db;
+            border-radius: 15px;
+            top: 4px;
+            left: 4px;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+        
+        .lang-id .lang-slider {
+            transform: translateX(100%);
+        }
+        
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 12px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #2c3e50;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        
+        /* Hero Section with Animated Gradient */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(-45deg, #f5f7fa, #c3cfe2, #a8c6df, #8fb8de);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            z-index: -1;
+        }
+        
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 30%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 100%;
+            margin: 0 auto 25px;
+            color: #555;
+            padding: 0 10px;
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background-color: #3498db;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-img {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .about-img img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text {
+            width: 100%;
+        }
+        
+        /* Skills Section */
+        .skills {
+            background-color: #f5f7fa;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-card i {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: white;
+        }
+        
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+        
+        .filter-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .filter-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .portfolio-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .portfolio-info {
+            padding: 15px;
+            background-color: white;
+        }
+        
+        .portfolio-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #f1f1f1;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #3498db;
+        }
+        
+        .category-frontend {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .category-backend {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .category-uiux {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #f5f7fa;
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            width: 100%;
+        }
+        
+        .contact-form {
+            width: 100%;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info-item i {
+            font-size: 1.3rem;
+            color: #3498db;
+            margin-right: 12px;
+            width: 25px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        /* WhatsApp Button Styling */
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+        }
+        
+        .whatsapp-btn i {
+            font-size: 1.1rem;
+        }
+        
+        /* Location Link Styling */
+        .location-link {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            word-break: break-word;
+        }
+        
+        .location-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        /* Google Map Styling */
+        .map-container {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 200px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 0 15px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 25px;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .footer-logo span {
+            color: #3498db;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links a:hover {
+            color: #3498db;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+        
+        /* Responsive Styles */
+        @media (min-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+                max-width: 90%;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                flex-direction: row;
+                gap: 40px;
+            }
+            
+            .about-img, .about-text {
+                flex: 1;
+            }
+            
+            .contact-container {
+                flex-direction: row;
+                gap: 40px;
+            }
+            
+            .contact-info, .contact-form {
+                flex: 1;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 0 20px;
+            }
+            
+            section {
+                padding: 70px 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-content p {
+                max-width: 80%;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links li {
+                margin-left: 25px;
+            }
+            
+            .nav-links a {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .lang-option {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: 999;
+                max-height: calc(100vh - 60px);
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .lang-toggle {
+                margin: 10px 0;
+            }
+            
+            .hero-btns {
+                flex-direction: row;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .map-container {
+                height: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 70px 0 30px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+                padding: 0 10px;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .hero-btns .btn {
+                width: 80%;
+                max-width: 250px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                padding: 0 10px;
+            }
+            
+            .section-title::after {
+                width: 50px;
+            }
+            
+            .skills-container, .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .skill-card, .portfolio-item {
+                padding: 20px;
+            }
+            
+            .portfolio-item img {
+                height: 160px;
+            }
+            
+            .filter-btn {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .contact-info-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .contact-info-item i {
+                margin-bottom: 5px;
+            }
+            
+            .map-container {
+                height: 160px;
+            }
+            
+            .footer-logo {
+                font-size: 1.3rem;
+            }
+            
+            .social-links {
+                gap: 10px;
+            }
+            
+            .social-links a {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .hero-content h1 {
+                font-size: 1.7rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .btn, .whatsapp-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .portfolio-item img {
+                height: 140px;
+            }
+            
+            .map-container {
+                height: 140px;
+            }
+        }
+        
+        /* Prevent text overflow on very small screens */
+        @media (max-width: 360px) {
+            .container {
+                width: 100%;
+                padding: 0 10px;
+            }
+            
+            h1, h2, h3, p {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .contact-info-item p {
+                word-break: break-word;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="container navbar">
+            <a href="#" class="logo">Ray<span>han</span></a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" data-en="Home" data-id="Beranda">Home</a></li>
+                <li><a href="#about" data-en="About" data-id="Tentang">About</a></li>
+                <li><a href="#skills" data-en="Skills" data-id="Keahlian">Skills</a></li>
+                <li><a href="#portfolio" data-en="Portfolio" data-id="Portofolio">Portfolio</a></li>
+                <li><a href="#contact" data-en="Contact" data-id="Kontak">Contact</a></li>
+                <li>
+                    <div class="lang-toggle" id="langToggle" role="button" aria-label="Toggle language">
+                        <div class="lang-slider"></div>
+                        <div class="lang-option lang-active" data-lang="en">EN</div>
+                        <div class="lang-option" data-lang="id">ID</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 data-en="Hi, I'm Rayhan Adesta Anandaputra" data-id="Halo, Saya Rayhan Adesta Anandaputra">Hi, I'm Rayhan Adesta Anandaputra</h1>
+            <p data-en="A passionate web developer focused on creating beautiful, functional, and user-friendly digital experiences. I transform ideas into reality through code." 
+               data-id="Seorang pengembang web yang berfokus pada pembuatan pengalaman digital yang indah, fungsional, dan ramah pengguna. Saya mengubah ide menjadi kenyataan melalui kode.">
+                A passionate web developer focused on creating beautiful, functional, and user-friendly digital experiences.
+            </p>
+            <div class="hero-btns">
+                <a href="#portfolio" class="btn" data-en="View My Work" data-id="Lihat Karya Saya">View My Work</a>
+                <a href="#contact" class="btn btn-secondary" data-en="Contact Me" data-id="Hubungi Saya">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title" data-en="About Me" data-id="Tentang Saya">About Me</h2>
+            <div class="about-content">
+                <div class="about-img">
+                    <!-- Replace with your actual image path -->
+                    <img src="images/profile.png" alt="Rayhan Adesta Anandaputra" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <h3 data-en="Hello! I'm Rayhan, a web developer in progress!" data-id="Halo! Saya Rayhan, seorang pengembang web yang sedang berkembang!">Hello! I'm Rayhan, a web developer in progress!</h3>
+                    <p data-en="With over 3 years of learning experience in web development, I'm focused on creating responsive, accessible, and performant websites and applications. I have a passion for clean code and elegant design." 
+                       data-id="Dengan pengalaman belajar lebih dari 3 tahun dalam pengembangan web, saya fokus pada pembuatan website dan aplikasi yang responsif, mudah diakses, dan berkinerja tinggi. Saya memiliki hasrat untuk kode yang bersih dan desain yang elegan.">
+                        With over 3 years of learning experience in web development, I'm focused on creating responsive, accessible, and performant websites.
+                    </p>
+                    <p data-en="My expertise includes front-end technologies like HTML, CSS, JavaScript, as well as back-end development with PHP and I'm still learning Python. I'm always eager to learn new technologies and tackle challenging projects." 
+                       data-id="Keahlian saya mencakup teknologi front-end seperti HTML, CSS, JavaScript, serta pengembangan back-end dengan PHP dan saya masih belajar Python. Saya selalu bersemangat untuk mempelajari teknologi baru dan mengerjakan proyek yang menantang.">
+                        My expertise includes front-end technologies like HTML, CSS, JavaScript.
+                    </p>
+                    <p data-en="When I'm not coding, you can find me making music, hiking, or experimenting with new web development frameworks." 
+                       data-id="Ketika tidak sedang ngoding, Anda dapat menemukan saya sedang membuat musik, mendaki gunung, atau bereksperimen dengan framework pengembangan web baru.">
+                        When I'm not coding, you can find me making music, hiking, or experimenting with new web development frameworks.
+                    </p>
+                    <a href="#contact" class="btn" data-en="Get In Touch" data-id="Hubungi Saya">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title" data-en="My Skills" data-id="Keahlian Saya">My Skills</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3 data-en="Frontend Development" data-id="Pengembangan Frontend">Frontend Development</h3>
+                    <p data-en="HTML, CSS, JavaScript, Responsive Design, Cross-browser Compatibility" 
+                       data-id="HTML, CSS, JavaScript, Desain Responsif, Kompatibilitas Lintas Browser">
+                        HTML, CSS, JavaScript, Responsive Design, Cross-browser Compatibility
+                    </p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-server"></i>
+                    <h3 data-en="Backend Development" data-id="Pengembangan Backend">Backend Development</h3>
+                    <p data-en="PHP, Python, Database Design, Authentication" 
+                       data-id="PHP, Python, Desain Database, Autentikasi">
+                        PHP, Python, Database Design, Authentication
+                    </p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3 data-en="UI/UX Design" data-id="Desain UI/UX">UI/UX Design</h3>
+                    <p data-en="Figma, Prototyping, User Research, Design Systems" 
+                       data-id="Figma, Prototyping, Penelitian Pengguna, Sistem Desain">
+                        Figma, Prototyping, User Research, Design Systems
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section with Categories -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title" data-en="My Portfolio" data-id="Portofolio Saya">My Portfolio</h2>
+            
+            <!-- Portfolio Filter Buttons -->
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all" data-en="All Projects" data-id="Semua Proyek">All Projects</button>
+                <button class="filter-btn" data-filter="frontend" data-en="Frontend" data-id="Frontend">Frontend</button>
+                <button class="filter-btn" data-filter="backend" data-en="Backend" data-id="Backend">Backend</button>
+                <button class="filter-btn" data-filter="uiux" data-en="UI/UX" data-id="UI/UX">UI/UX</button>
+            </div>
+            
+            <!-- Portfolio Items Grid -->
+            <div class="portfolio-grid">
+                <!-- Frontend Projects -->
+                <div class="portfolio-item" data-category="frontend">
+                    <img src="images/4.png" alt="E-commerce Website" loading="lazy">
+                    <div class="portfolio-info">
+                        <span class="portfolio-category category-frontend" data-en="Frontend" data-id="Frontend">Frontend</span>
+                        <h3 data-en="Responsive E-commerce Website" data-id="Website E-commerce Responsif">Responsive E-commerce Website</h3>
+                        <p data-en="A fully responsive online store built with HTML, CSS, and JavaScript. Features include product filtering, shopping cart, and mobile-first design." 
+                           data-id="Toko online yang sepenuhnya responsif dibangun dengan HTML, CSS, dan JavaScript. Fitur termasuk penyaringan produk, keranjang belanja, dan desain mobile-first.">
+                            A fully responsive online store built with HTML, CSS, and JavaScript.
+                        </p>
+                    </div>
+                </div>
+                                
+                <!-- Backend Projects -->
+                <div class="portfolio-item" data-category="backend">
+                    <img src="images/5.png" alt="Finance Dashboard" loading="lazy">
+                    <div class="portfolio-info">
+                        <span class="portfolio-category category-backend" data-en="Backend" data-id="Backend">Backend</span>
+                        <h3 data-en="A Zoom alternative" data-id="Sebuah alternatif Zoom">A Zoom alternative</h3>
+                        <p data-en="A zoom alternative complete with camera, and microphone compatibility and room creation. It also serve for a assignment management, for knowing when and which assignment is due and turn in. Comaptibility ollama AI, which is in early stages" 
+                           data-id="Alternatif Zoom yang lengkap dengan kompatibilitas kamera dan mikrofon, serta pembuatan ruang. Aplikasi ini juga berfungsi untuk manajemen tugas, untuk mengetahui kapan dan tugas mana yang harus dikumpulkan. Kompatibilitas dengan Ollama AI, yang masih dalam tahap awal.">
+                            A zoom alternative with camera, microphone, room creation, and assignment management.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="backend">
+                    <img src="images/4.png" alt="Content Management System" loading="lazy">
+                    <div class="portfolio-info">
+                        <span class="portfolio-category category-backend" data-en="Backend" data-id="Backend">Backend</span>
+                        <h3 data-en="A responsive and working database website" data-id="Situs web basis data yang responsif dan berfungsi dengan baik.">Database Website</h3>
+                        <p data-en="A responsive website with workin database. Built with PHP, MySQL, and secure authentication." 
+                           data-id="Sebuah situs web responsif dengan basis data yang berfungsi. Dibangun dengan PHP, MySQL, dan otentikasi yang aman.">
+                            A responsive website with working database built with PHP and MySQL.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- UI/UX Projects -->
+                <div class="portfolio-item" data-category="uiux">
+                    <img src="images/1.png" alt="Fitness App Design" loading="lazy">
+                    <div class="portfolio-info">
+                        <span class="portfolio-category category-uiux" data-en="UI/UX" data-id="UI/UX">UI/UX</span>
+                        <h3 data-en="A Zoom alternative" data-id="Sebuah alternatif Zoom">Zoom Alternative Flow</h3>
+                        <p data-en="A rough flow of the 'Chroma' Zoom alternative. Includes user flows, and interactive prototypes in Figma." 
+                           data-id="Diagram alur kasar alternatif 'Chroma' Zoom. Termasuk alur pengguna, dan prototipe interaktif di Figma.">
+                            A flow diagram for 'Chroma' Zoom alternative with user flows and Figma prototypes.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="uiux">
+                    <img src="images/2.png" alt="Banking Dashboard Design" loading="lazy">
+                    <div class="portfolio-info">
+                        <span class="portfolio-category category-uiux" data-en="UI/UX" data-id="UI/UX">UI/UX</span>
+                        <h3 data-en="E-commerce Design" data-id="Desain E-commerce">E-commerce Design</h3>
+                        <p data-en="E-commerce design, focus on user comfortability and access. We make the design less furstrating and more enganging." 
+                           data-id="Desain e-commerce, berfokus pada kenyamanan dan akses pengguna. Kami membuat desain yang tidak membuat frustrasi dan lebih menarik.">
+                            E-commerce design focused on user comfort, accessibility, and engagement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-en="Contact Me" data-id="Hubungi Saya">Contact Me</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 data-en="Let's Work Together" data-id="Mari Bekerja Sama">Let's Work Together</h3>
+                    <p data-en="I'm always open to discussing new opportunities, creative projects, or just having a friendly chat about technology and design." 
+                       data-id="Saya selalu terbuka untuk membahas peluang baru, proyek kreatif, atau sekadar mengobrol santai tentang teknologi dan desain.">
+                        I'm always open to discussing new opportunities, creative projects, or just having a friendly chat.
+                    </p>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4 data-en="Email" data-id="Email">Email</h4>
+                            <p>raydesput@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4 data-en="Phone" data-id="Telepon">Phone</h4>
+                            <p>+62 821 3602 7920</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4 data-en="Location" data-id="Lokasi">Location</h4>
+                            <p>
+                                <a href="https://www.google.com/maps/place/Jl.+Cinde+Utara+VII+No.6,+Jomblang,+Kec.+Candisari,+Kota+Semarang,+Jawa+Tengah+50256/@-7.0113046,110.4382059,17z/data=!3m1!4b1!4m6!3m5!1s0x2e708c88dddfebed:0x19bba7164397446b!8m2!3d-7.0113046!4d110.4407862!16s%2Fg%2F11pzckq12v?entry=ttu" 
+                                   target="_blank" class="location-link" 
+                                   data-en="Jl. Cinde Utara VII No.6, Semarang" 
+                                   data-id="Jl. Cinde Utara VII No.6, Semarang">
+                                    Jl. Cinde Utara VII No.6, Semarang
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Embedded Google Map -->
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.0233404686297!2d110.4382059!3d-7.0113046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c88dddfebed%3A0x19bba7164397446b!2sJl.%20Cinde%20Utara%20VII%20No.6%2C%20Jomblang%2C%20Kec.%20Candisari%2C%20Kota%20Semarang%2C%20Jawa%20Tengah%2050256!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Rayhan's Location in Semarang">
+                        </iframe>
+                    </div>
+
+                    <br><br>
+                    <!-- Direct WhatsApp Contact -->
+                    <div class="contact-info-item">
+                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                        <div>
+                            <h4 data-en="WhatsApp" data-id="WhatsApp">WhatsApp</h4>
+                            <p data-en="Message me directly on WhatsApp" data-id="Kirim pesan langsung ke WhatsApp saya">Message me directly on WhatsApp</p>
+                            <a href="https://wa.me/6282136027920?text=Hello%20Rayhan,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+                               target="_blank" class="whatsapp-btn" data-en="Message on WhatsApp" data-id="Pesan di WhatsApp">
+                                <i class="fab fa-whatsapp"></i> Message Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Your Name" required data-en-placeholder="Your Name" data-id-placeholder="Nama Anda" aria-label="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Your Email" required data-en-placeholder="Your Email" data-id-placeholder="Email Anda" aria-label="Your Email">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Your Message" required data-en-placeholder="Your Message" data-id-placeholder="Pesan Anda" aria-label="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="btn whatsapp-btn" data-en="Send via WhatsApp" data-id="Kirim via WhatsApp">
+                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                        </button>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: #666;">
+                            <i class="fas fa-info-circle"></i> 
+                            <span data-en="Clicking 'Send via WhatsApp' will open WhatsApp with your message" 
+                                  data-id="Mengklik 'Kirim via WhatsApp' akan membuka WhatsApp dengan pesan Anda">
+                                Clicking 'Send via WhatsApp' will open WhatsApp with your message
+                            </span>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="footer-logo">Ray<span>han</span></a>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6282136027920?text=Hello%20Rayhan,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+                       target="_blank" title="WhatsApp" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-en="&copy; 2023 Rayhan Adesta. All rights reserved." 
+                   data-id="&copy; 2023 Rayhan Adesta. Hak cipta dilindungi.">
+                    &copy; 2023 Rayhan Adesta. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Management
+        let currentLang = 'en';
+        const langToggle = document.getElementById('langToggle');
+        const langOptions = document.querySelectorAll('.lang-option');
+        const langSlider = document.querySelector('.lang-slider');
+        
+        // Toggle language
+        langToggle.addEventListener('click', function() {
+            // Toggle between English and Indonesian
+            currentLang = currentLang === 'en' ? 'id' : 'en';
+            
+            // Update toggle UI
+            document.body.classList.toggle('lang-id');
+            
+            // Update active language indicator
+            langOptions.forEach(option => {
+                if (option.dataset.lang === currentLang) {
+                    option.classList.add('lang-active');
+                } else {
+                    option.classList.remove('lang-active');
+                }
+            });
+            
+            // Update all text on the page
+            updatePageLanguage(currentLang);
+            
+            // Store preference in localStorage
+            localStorage.setItem('portfolio-lang', currentLang);
+        });
+        
+        // Update all text based on selected language
+        function updatePageLanguage(lang) {
+            // Update all elements with data-en and data-id attributes
+            document.querySelectorAll('[data-en], [data-id]').forEach(element => {
+                // Skip language toggle buttons
+                if (element.classList.contains('lang-option')) return;
+                
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    // Check if it's a placeholder
+                    if (element.hasAttribute('data-en-placeholder')) {
+                        element.placeholder = element.getAttribute(`data-${lang}-placeholder`);
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            });
+            
+            // Update page title
+            document.title = lang === 'en' 
+                ? "Rayhan Adesta | Portfolio" 
+                : "Rayhan Adesta | Portofolio";
+        }
+        
+        // Load language preference from localStorage
+        function loadLanguagePreference() {
+            const savedLang = localStorage.getItem('portfolio-lang');
+            if (savedLang && (savedLang === 'en' || savedLang === 'id')) {
+                currentLang = savedLang;
+                
+                // Update UI if Indonesian is selected
+                if (currentLang === 'id') {
+                    document.body.classList.add('lang-id');
+                    
+                    langOptions.forEach(option => {
+                        if (option.dataset.lang === 'id') {
+                            option.classList.add('lang-active');
+                        } else {
+                            option.classList.remove('lang-active');
+                        }
+                    });
+                }
+                
+                updatePageLanguage(currentLang);
+            }
+        }
+        
+        // Portfolio Filtering
+        function setupPortfolioFilter() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // Show/hide portfolio items based on filter
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Update aria-expanded attribute for accessibility
+            const isExpanded = navLinks.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNav = navLinks.contains(event.target) || menuToggle.contains(event.target);
+            if (!isClickInsideNav && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Form submission for WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Simple validation
+            if (!name || !email || !message) {
+                alert(currentLang === 'en' 
+                    ? "Please fill in all fields." 
+                    : "Harap isi semua bidang.");
+                return;
+            }
+            
+            // Encode the message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(
+                `Hello Rayhan! My name is ${name} (${email}).\n\n${message}\n\n[Sent from your portfolio website]`
+            );
+            
+            // Your WhatsApp number - Correct format for Indonesia
+            const whatsappNumber = "6282136027920"; // Format: 62 (country code) + 82136027920 (number without 0)
+            
+            // Create WhatsApp URL
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+            
+            // Reset form
+            this.reset();
+            
+            // Show confirmation message
+            const confirmationMsg = currentLang === 'en'
+                ? "Opening WhatsApp with your message..."
+                : "Membuka WhatsApp dengan pesan Anda...";
+            
+            // Create a temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #25D366;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 5px;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                font-weight: 600;
+                font-size: 0.9rem;
+                max-width: calc(100% - 40px);
+                text-align: center;
+            `;
+            notification.textContent = confirmationMsg;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize page
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLanguagePreference();
+            setupPortfolioFilter();
+            
+            // Set initial aria-expanded state for menu toggle
+            menuToggle.setAttribute('aria-expanded', 'false');
+        });
+        
+        // Handle window resize for better responsiveness
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                // Close mobile menu when resizing to larger screens
+                if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            }, 250);
+        });
+    </script>
+</body>
+</html>
