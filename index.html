@@ -22,7 +22,7 @@
             line-height: 1.6;
             color: #333;
             background-color: #f9f9f9;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
         
         .container {
@@ -159,14 +159,14 @@
             color: #3498db;
         }
         
-        .menu-toggle {
+        /* Mobile-only language toggle - visible only on mobile */
+        .mobile-lang-toggle {
             display: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: #2c3e50;
-            background: none;
-            border: none;
-            padding: 5px;
+        }
+        
+        /* Desktop navigation links - hidden on mobile */
+        .desktop-nav-links {
+            display: flex;
         }
         
         /* Hero Section with Animated Gradient */
@@ -676,66 +676,31 @@
                 justify-content: space-between;
                 align-items: center;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+            
+            /* Hide mobile language toggle on desktop */
+            .mobile-lang-toggle {
+                display: none !important;
             }
             
-            .nav-links {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                flex-direction: column;
+            /* Show desktop navigation on desktop */
+            .desktop-nav-links {
+                display: flex !important;
+            }
+        }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 767px) {
+            /* Hide desktop navigation on mobile */
+            .desktop-nav-links {
+                display: none !important;
+            }
+            
+            /* Show mobile language toggle */
+            .mobile-lang-toggle {
+                display: flex;
                 align-items: center;
-                padding: 20px 0;
-                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: all 0.3s ease;
-                z-index: 999;
-                max-height: calc(100vh - 60px);
-                overflow-y: auto;
             }
             
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            .nav-links li {
-                margin: 10px 0;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .nav-links a {
-                display: block;
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-            
-            .lang-toggle {
-                margin: 10px 0;
-            }
-            
-            .hero-btns {
-                flex-direction: row;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .map-container {
-                height: 180px;
-            }
-        }
-        
-        @media (max-width: 480px) {
             .hero {
                 padding: 70px 0 30px;
             }
@@ -816,6 +781,22 @@
             }
         }
         
+        @media (max-width: 480px) {
+            /* Mobile language toggle styling */
+            .mobile-lang-toggle .lang-toggle {
+                margin-left: 0;
+            }
+            
+            .navbar {
+                justify-content: space-between;
+                width: 100%;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+        }
+        
         @media (max-width: 320px) {
             .hero-content h1 {
                 font-size: 1.7rem;
@@ -862,10 +843,7 @@
     <nav>
         <div class="container navbar">
             <a href="#" class="logo">Ray<span>han</span></a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links" id="navLinks">
+            <div class="nav-links desktop-nav-links">
                 <li><a href="#home" data-en="Home" data-id="Beranda">Home</a></li>
                 <li><a href="#about" data-en="About" data-id="Tentang">About</a></li>
                 <li><a href="#skills" data-en="Skills" data-id="Keahlian">Skills</a></li>
@@ -878,7 +856,15 @@
                         <div class="lang-option" data-lang="id">ID</div>
                     </div>
                 </li>
-            </ul>
+            </div>
+            <!-- Mobile-only language toggle -->
+            <div class="mobile-lang-toggle">
+                <div class="lang-toggle" id="mobileLangToggle" role="button" aria-label="Toggle language">
+                    <div class="lang-slider"></div>
+                    <div class="lang-option lang-active" data-lang="en">EN</div>
+                    <div class="lang-option" data-lang="id">ID</div>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -903,7 +889,6 @@
             <h2 class="section-title" data-en="About Me" data-id="Tentang Saya">About Me</h2>
             <div class="about-content">
                 <div class="about-img">
-                    <!-- Replace with your actual image path -->
                     <img src="images/profile.png" alt="Rayhan Adesta Anandaputra" loading="lazy">
                 </div>
                 <div class="about-text">
@@ -1164,33 +1149,38 @@
     <script>
         // Language Management
         let currentLang = 'en';
-        const langToggle = document.getElementById('langToggle');
-        const langOptions = document.querySelectorAll('.lang-option');
-        const langSlider = document.querySelector('.lang-slider');
         
-        // Toggle language
-        langToggle.addEventListener('click', function() {
-            // Toggle between English and Indonesian
-            currentLang = currentLang === 'en' ? 'id' : 'en';
+        // Function to handle language toggle for both desktop and mobile
+        function setupLanguageToggle(toggleId) {
+            const langToggle = document.getElementById(toggleId);
+            if (!langToggle) return;
             
-            // Update toggle UI
-            document.body.classList.toggle('lang-id');
+            const langOptions = langToggle.querySelectorAll('.lang-option');
+            const langSlider = langToggle.querySelector('.lang-slider');
             
-            // Update active language indicator
-            langOptions.forEach(option => {
-                if (option.dataset.lang === currentLang) {
-                    option.classList.add('lang-active');
-                } else {
-                    option.classList.remove('lang-active');
-                }
+            langToggle.addEventListener('click', function() {
+                // Toggle between English and Indonesian
+                currentLang = currentLang === 'en' ? 'id' : 'en';
+                
+                // Update toggle UI
+                document.body.classList.toggle('lang-id');
+                
+                // Update active language indicator
+                langOptions.forEach(option => {
+                    if (option.dataset.lang === currentLang) {
+                        option.classList.add('lang-active');
+                    } else {
+                        option.classList.remove('lang-active');
+                    }
+                });
+                
+                // Update all text on the page
+                updatePageLanguage(currentLang);
+                
+                // Store preference in localStorage
+                localStorage.setItem('portfolio-lang', currentLang);
             });
-            
-            // Update all text on the page
-            updatePageLanguage(currentLang);
-            
-            // Store preference in localStorage
-            localStorage.setItem('portfolio-lang', currentLang);
-        });
+        }
         
         // Update all text based on selected language
         function updatePageLanguage(lang) {
@@ -1226,7 +1216,8 @@
                 if (currentLang === 'id') {
                     document.body.classList.add('lang-id');
                     
-                    langOptions.forEach(option => {
+                    // Update all language toggles
+                    document.querySelectorAll('.lang-option').forEach(option => {
                         if (option.dataset.lang === 'id') {
                             option.classList.add('lang-active');
                         } else {
@@ -1272,97 +1263,72 @@
             });
         }
         
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            // Update aria-expanded attribute for accessibility
-            const isExpanded = navLinks.classList.contains('active');
-            menuToggle.setAttribute('aria-expanded', isExpanded);
-        });
-        
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            });
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideNav = navLinks.contains(event.target) || menuToggle.contains(event.target);
-            if (!isClickInsideNav && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-        
         // Form submission for WhatsApp
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Simple validation
-            if (!name || !email || !message) {
-                alert(currentLang === 'en' 
-                    ? "Please fill in all fields." 
-                    : "Harap isi semua bidang.");
-                return;
-            }
-            
-            // Encode the message for WhatsApp URL
-            const encodedMessage = encodeURIComponent(
-                `Hello Rayhan! My name is ${name} (${email}).\n\n${message}\n\n[Sent from your portfolio website]`
-            );
-            
-            // Your WhatsApp number - Correct format for Indonesia
-            const whatsappNumber = "6282136027920"; // Format: 62 (country code) + 82136027920 (number without 0)
-            
-            // Create WhatsApp URL
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-            
-            // Open WhatsApp in a new tab
-            window.open(whatsappUrl, '_blank');
-            
-            // Reset form
-            this.reset();
-            
-            // Show confirmation message
-            const confirmationMsg = currentLang === 'en'
-                ? "Opening WhatsApp with your message..."
-                : "Membuka WhatsApp dengan pesan Anda...";
-            
-            // Create a temporary notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background-color: #25D366;
-                color: white;
-                padding: 12px 20px;
-                border-radius: 5px;
-                z-index: 9999;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                font-weight: 600;
-                font-size: 0.9rem;
-                max-width: calc(100% - 40px);
-                text-align: center;
-            `;
-            notification.textContent = confirmationMsg;
-            document.body.appendChild(notification);
-            
-            // Remove notification after 3 seconds
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        });
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                // Simple validation
+                if (!name || !email || !message) {
+                    alert(currentLang === 'en' 
+                        ? "Please fill in all fields." 
+                        : "Harap isi semua bidang.");
+                    return;
+                }
+                
+                // Encode the message for WhatsApp URL
+                const encodedMessage = encodeURIComponent(
+                    `Hello Rayhan! My name is ${name} (${email}).\n\n${message}\n\n[Sent from your portfolio website]`
+                );
+                
+                // Your WhatsApp number - Correct format for Indonesia
+                const whatsappNumber = "6282136027920"; // Format: 62 (country code) + 82136027920 (number without 0)
+                
+                // Create WhatsApp URL
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                
+                // Open WhatsApp in a new tab
+                window.open(whatsappUrl, '_blank');
+                
+                // Reset form
+                this.reset();
+                
+                // Show confirmation message
+                const confirmationMsg = currentLang === 'en'
+                    ? "Opening WhatsApp with your message..."
+                    : "Membuka WhatsApp dengan pesan Anda...";
+                
+                // Create a temporary notification
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background-color: #25D366;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 5px;
+                    z-index: 9999;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    max-width: calc(100% - 40px);
+                    text-align: center;
+                `;
+                notification.textContent = confirmationMsg;
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            });
+        }
         
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1374,12 +1340,6 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
-                    // Close mobile menu if open
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        menuToggle.setAttribute('aria-expanded', 'false');
-                    }
-                    
                     window.scrollTo({
                         top: targetElement.offsetTop - 70,
                         behavior: 'smooth'
@@ -1393,21 +1353,9 @@
             loadLanguagePreference();
             setupPortfolioFilter();
             
-            // Set initial aria-expanded state for menu toggle
-            menuToggle.setAttribute('aria-expanded', 'false');
-        });
-        
-        // Handle window resize for better responsiveness
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                // Close mobile menu when resizing to larger screens
-                if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            }, 250);
+            // Setup both desktop and mobile language toggles
+            setupLanguageToggle('langToggle');
+            setupLanguageToggle('mobileLangToggle');
         });
     </script>
 </body>
